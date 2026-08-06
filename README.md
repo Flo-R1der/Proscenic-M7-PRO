@@ -122,33 +122,3 @@ show_header_toggle: false
 title: Proscenic M7 PRO
 ```
 
-
-## Upcoming implementations
-
-### Already obtained (just need to report them here)
-- generic infos (name, model, serial number and others)
-- firmware informations
-- avaibility
-- last message(s) (cleaning completed, tank emptying in progress and others)
-- zone cleaning function (based on automatic partition)
-- multi-zone cleaning function (based on user defined zones)
-- Y shaped mopping function
-- set Silent (on/off)
-- set Equipment light (on/off)
-- auto dust collection (enable/disable)
-- set volume
-
-
-### Still to be achieved (project finished and I'll finally be happy!).
-- add the "continue" to the vaccum entity (unfortunately the vacuum template entity only accepts the pause function (meaning the same command for a restore), but in our case the commands would be different)
-- battery information
-- size of the area currently being cleaned
-- time of the cleaning operation currently in progresss
-- consumables information ( usage percentage and need of replacement)
-
-
-## Features that will not be implemented
-- Silent Mode: the "Silent Mode" menu allows you to set the time slots when the robot is set to Silent mode. It does not make sense to perform the operation via home automation hub
-- Appoint Clean: You need the map to indicate the exact cleanup point. It may have sense only if you can get the exact point (which is possible), at that point you can create a script for cleaning that exact point. It doesn't make much sense, if you decide to implement it, it will be given a very low priority
-- Area Clean: Cleans up the square around where it is located. Doesn't make sense via home automation hub, will be left only via app
-- Remote control
