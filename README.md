@@ -20,71 +20,74 @@ All your help is precious, feel free to collaborate. Thanks
 
 
 ## Installation
-Package configuration must be enabled. Just add to your *configuration.yaml*
-```
-homeassistant:
-  packages: !include_dir_named packages
-```
-then download the folder *proscenic_m7_pro* and paste it into the packages folder.
 
+1. Download the folder `proscenic_m7_pro` and paste it into the `packages` folder.
+Package configuration must be enabled. Just add to your `configuration.yaml`:
+    ```yaml
+    homeassistant:
+      packages: !include_dir_named packages
+    ```
 
-*The following steps are taken from the immense work done by the user [Fluepke](https://github.com/Fluepke/proscenic), whom I would like to thank for his enormous work. Previously I got the token but with a more complex method, so thanks for this simplified procedure.*
+2. Now open a linux terminal and run the following commands:
+    ```bash
+    set -p LOGINUSER=
+    set -p PASSWORD=
 
-From linux terminal run the following
+    curl -v -k -X POST -H "os: i" -H "Content-Type: application/json" -H "c: 338" -H "lan: en" -H "Host: mobile.proscenic.com.de:443" -H "User-Agent: ProscenicHome/1.7.8 (iPhone; iOS 14.2.1; Scale/3.00)" -H "v: 1.7.8" -d "{\"state\":\"欧洲\",\"countryCode\":\"49\",\"appVer\":\"1.7.8\",\"type\":\"2\",\"os\":\"IOS\",\"password\":\"$(echo -n $PASSWORD | md5sum)\",\"registrationId\":\"13165ffa4eb156ac484\",\"language\":\"EN\",\"username\":\"$LOGINUSER\",\"pwd\":\"$PASSWORD\"}" "https://mobile.proscenic.com.de/user/login"
+    ```
 
-```
-curl -v -k -X POST -H "os: i" -H "Content-Type: application/json" -H "c: 338" -H "lan: en" -H "Host: mobile.proscenic.com.de:443" -H "User-Agent: ProscenicHome/1.7.8 (iPhone; iOS 14.2.1; Scale/3.00)" -H "v: 1.7.8" -d "{\"state\":\"欧洲\",\"countryCode\":\"49\",\"appVer\":\"1.7.8\",\"type\":\"2\",\"os\":\"IOS\",\"password\":\"$(echo -n $PASSWORD | md5sum)\",\"registrationId\":\"13165ffa4eb156ac484\",\"language\":\"EN\",\"username\":\"$LOGINUSER\",\"pwd\":\"$PASSWORD\"}" "https://mobile.proscenic.com.de/user/login"
-```
+    > Obviously it is necessary to enter your `LOGINUSER` and `PASSWORD` with the relative access data to the Proscenic Home application.
 
-Obviously it is necessary to replace *$LOGINUSER* and *$PASSWORD* with the relative access data to the Proscenic Home application.
-
-You will get a response like this:
-```
-{
-  "code": 0,
-  "msg": "success",
-  "data": {
-    "token": "XXXXXXXXXXXXXXX",
-    "uid": "XXXXXXXXXXXXXXX",
-    "equipcount": 0,
-    "nickname": null,
-    "recieveMsg": false,
-    "countryCode": "49",
-    "homeId": null
-  }
-}
-```
-Then run
-```
-curl "https://mobile.proscenic.com.de/user/getEquips/$LOGINUSER"  -d "username=$LOGINUSER"
-```
-You will get a response like this:
-```
-"content": [
-      {
-        "name": "M7 Pro",
-        "code": "M7_PRO",
-        "typeName": "CleanRobot",
-        "model": "811_LDS",
-        "sn": "XXXXXXXXXXXXXXX",
-        "deviceId": null,
-        "status": true,
-        "imgUrl": "http://mobile.proscenic.com.de/images/M7_PRO.png",
-        "homeId": null,
-        "shared": false,
-        "jump": "M7_PRO",
-        "ctrlversion": null,
-        "enabled": true,
-        "scMac": null,
-        "scSV": null,
-        "faqUrl": "https://www.proscenic.com/support/faq-f0460-l9999.html",
-        "cloud": 0,
-        "type": "CleanRobot"
+    You will get a response like this:
+    ```
+    {
+      "code": 0,
+      "msg": "success",
+      "data": {
+        "token": "XXXXXXXXXXXXXXX",
+        "uid": "XXXXXXXXXXXXXXX",
+        "equipcount": 0,
+        "nickname": null,
+        "recieveMsg": false,
+        "countryCode": "49",
+        "homeId": null
       }
-]
-```
-Now insert your username, the token (from the first *curl* command) and the sn (from the second *curl* command) you just obtained into the *secrets.yaml* file contained within the *proscenic_m7_pro* folder
+    }
+    ```
 
+3. Then run
+    ```bash
+    curl "https://mobile.proscenic.com.de/user/getEquips/$LOGINUSER"  -d "username=$LOGINUSER"
+    ```
+    You will get a response like this:
+    ```
+    "content": [
+          {
+            "name": "M7 Pro",
+            "code": "M7_PRO",
+            "typeName": "CleanRobot",
+            "model": "811_LDS",
+            "sn": "XXXXXXXXXXXXXXX",
+            "deviceId": null,
+            "status": true,
+            "imgUrl": "http://mobile.proscenic.com.de/images/M7_PRO.png",
+            "homeId": null,
+            "shared": false,
+            "jump": "M7_PRO",
+            "ctrlversion": null,
+            "enabled": true,
+            "scMac": null,
+            "scSV": null,
+            "faqUrl": "https://www.proscenic.com/support/faq-f0460-l9999.html",
+            "cloud": 0,
+            "type": "CleanRobot"
+          }
+    ]
+    ```
+
+4. Now insert your username, the token (from the first *curl* command) and the sn (from the second *curl* command) you just obtained into the `secrets.yaml` file contained within the `proscenic_m7_pro` folder.
+
+---
 
 ## Available functions
 When your restart Home Assistant you will be able to:
