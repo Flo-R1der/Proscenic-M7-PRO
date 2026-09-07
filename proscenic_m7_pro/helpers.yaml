@@ -2,5 +2,4 @@ input_boolean:
   proscenic_is_pause:
     name: "Proscenic is in PAUSE?"
     icon: mdi:play-pause
-    default_entity_id: input_boolean.proscenic_is_pause
     
